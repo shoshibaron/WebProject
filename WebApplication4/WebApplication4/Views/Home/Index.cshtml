@@ -1,0 +1,30 @@
+﻿
+@using System.Collections
+@{
+    ViewData["Title"] = "Home Page";
+}
+<script>
+var viewData = @Json.Serialize(ViewData["Data"]);
+function SetContent(index) {
+document.getElementById("data-content").innerText =   viewData[index]["body"];
+document.getElementById("link-content").href =   viewData[index]["link"];
+}
+</script>
+<div>
+  <div class="text-center">
+    <ul id="links-list">
+      @foreach (NewsData link in (IEnumerable)ViewData["Data"])
+      {
+        int i = link.Index; 
+        <li>
+          @* <a href="#" onclick="SetContent(0)">@link.Title</a> *@
+          <a href="#" onclick="SetContent(@i)">@link.Title</a>
+        </li>
+      }
+    </ul>
+  </div>
+  <div>
+    <div id="data-content"></div>
+  </div>
+  <a id="link-content">read more...</a>
+</div>
